@@ -1,0 +1,115 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    width: 100%;
+    height: 100vh;
+}
+.container h1 {
+    text-align: left;
+    padding: 20px;
+    font-size: 2rem;
+}
+.formContent {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.container .formContent form div {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 5px 10px;
+}
+
+.container .formContent form .submit {
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+}
+
+button[type="submit"] {
+    width: 60%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+}
+
+.dashboard {
+    text-align: center;
+    padding: 50px;
+}
+.dashboard h1 {
+    font-size: 2.5rem;
+    color: #333;
+}
+.dashboard p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+button.logout {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #dc3545;
+    color: white;
+    cursor: pointer;
+}
+button.logout:hover {
+    background-color: #c82333;
+}
+
+@media screen and (max-width: 768px) {
+    .formContent {
+        width: 90%;
+    }
+    form {
+        gap: 10px;
+    }
+    .container .formContent form div {
+        width: 100%;
+    }
+    .container .formContent form .submit {
+        width: 100%;
+    }
+    button[type="submit"] {
+        width: 100%;
+    }
+}
