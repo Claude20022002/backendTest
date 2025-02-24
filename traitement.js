@@ -53,7 +53,8 @@ document.addEventListener("DOMContentLoaded", () => {
             const password = document.getElementById("loginPassword").value;
 
             try {
-                const response = await fetch("http://localhost:5000/login", {
+                const newLocal = "http://localhost:5000/login";
+                const response = await fetch(newLocal, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
