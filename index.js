@@ -213,7 +213,7 @@ app.get("/users", verifyToken, async (req, res) => {
     }
 });
 
-app.get("/me", verifyToken, async (req, res) => {
+app.get("/user", verifyToken, async (req, res) => {
     try {
         const user = await database.query(
             "SELECT id, name, email FROM users WHERE id = ?",

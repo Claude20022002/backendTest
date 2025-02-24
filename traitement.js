@@ -17,7 +17,9 @@ document.addEventListener("DOMContentLoaded", () => {
             try {
                 const response = await fetch("http://localhost:5000/register", {
                     method: "POST",
-                    headers: { "Content-Type": "application/json" },
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
                     body: JSON.stringify({ name, email, password }),
                 });
 
@@ -27,11 +29,14 @@ document.addEventListener("DOMContentLoaded", () => {
                     return;
                 }
 
-                // 🔹 Stocker uniquement le token (pas l'email)
-                sessionStorage.setItem("token", data.token);
+                // Stocker l'utilisateur de manière sécurisée avec un JWT
+                localStorage.setItem(
+                    "user",
+                    JSON.stringify({ email, token: data.token })
+                );
 
                 alert("Inscription réussie !");
-                window.location.href = "dashboard.html";
+                window.location.href = "login.html";
             } catch (error) {
                 alert("Erreur lors de l'inscription. Veuillez réessayer.");
             }
@@ -48,9 +53,12 @@ document.addEventListener("DOMContentLoaded", () => {
             const password = document.getElementById("loginPassword").value;
 
             try {
-                const response = await fetch("http://localhost:5000/login", {
+                const newLocal = "http://localhost:5000/login";
+                const response = await fetch(newLocal, {
                     method: "POST",
-                    headers: { "Content-Type": "application/json" },
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
                     body: JSON.stringify({ email, password }),
                 });
 
@@ -60,9 +68,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     return;
                 }
 
-                // 🔹 Stocker le token correctement
+                // Stocker le token dans sessionStorage
                 sessionStorage.setItem("token", data.token);
-
                 alert("Connexion réussie !");
                 window.location.href = "dashboard.html";
             } catch (error) {
@@ -74,31 +81,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // 🔹 Vérification de connexion avant l'accès au Dashboard
     if (window.location.pathname.includes("dashboard.html")) {
         const token = sessionStorage.getItem("token");
-        console.log("Token récupéré :", token);
-
         if (!token) {
             alert("Accès refusé. Veuillez vous connecter.");
             window.location.href = "login.html";
-        } else {
-            // 🔹 Récupération des infos de l'utilisateur
-            fetch("http://localhost:5000/me", {
-                method: "GET",
-                headers: { Authorization: `Bearer ${token}` },
-            })
-                .then((response) => response.json())
-                .then((data) => {
-                    if (data.error) {
-                        alert("Erreur : " + data.error);
-                        window.location.href = "login.html";
-                    } else {
-                        document.getElementById("username").textContent =
-                            data.name;
-                    }
-                })
-                .catch((error) => {
-                    alert("Erreur lors de la récupération des informations.");
-                    window.location.href = "login.html";
-                });
         }
     }
 
